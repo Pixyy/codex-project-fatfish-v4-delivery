@@ -1,0 +1,651 @@
+{
+  "schemaVersion": 1,
+  "actions": {
+    "idle": "待机",
+    "wave": "挥挥手",
+    "jump": "跳一下",
+    "think": "思考",
+    "work": "认真工作",
+    "feed": "吃白饭",
+    "sleep": "睡一会儿",
+    "failed": "有点困惑",
+    "walk-left": "向左走",
+    "walk-right": "向右走"
+  },
+  "forms": {
+    "chibi": {
+      "name": "Q 版",
+      "atlas": "/pets/chibi-atlas.png",
+      "columns": 8,
+      "rows": 11,
+      "height": 300,
+      "animations": {
+        "idle": {
+          "frames": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ]
+          ],
+          "durations": [
+            280,
+            110,
+            110,
+            140,
+            140,
+            320
+          ],
+          "loop": true
+        },
+        "wave": {
+          "frames": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              3
+            ]
+          ],
+          "durations": [
+            140,
+            140,
+            140,
+            280
+          ],
+          "loop": false
+        },
+        "jump": {
+          "frames": [
+            [
+              0,
+              4
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              4
+            ]
+          ],
+          "durations": [
+            140,
+            140,
+            140,
+            140,
+            280
+          ],
+          "loop": false
+        },
+        "think": {
+          "frames": [
+            [
+              0,
+              6
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ]
+          ],
+          "durations": [
+            150,
+            150,
+            150,
+            150,
+            150,
+            260
+          ],
+          "loop": true
+        },
+        "work": {
+          "frames": [
+            [
+              0,
+              7
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              5,
+              7
+            ]
+          ],
+          "durations": [
+            120,
+            120,
+            120,
+            120,
+            120,
+            220
+          ],
+          "loop": true
+        },
+        "feed": {
+          "frames": [
+            [
+              0,
+              8
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              5,
+              8
+            ]
+          ],
+          "durations": [
+            150,
+            150,
+            150,
+            150,
+            150,
+            280
+          ],
+          "loop": false
+        },
+        "sleep": {
+          "frames": [
+            [
+              2,
+              0
+            ]
+          ],
+          "durations": [
+            1200
+          ],
+          "loop": true
+        },
+        "failed": {
+          "frames": [
+            [
+              0,
+              5
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              7,
+              5
+            ]
+          ],
+          "durations": [
+            140,
+            140,
+            140,
+            140,
+            140,
+            140,
+            140,
+            240
+          ],
+          "loop": true
+        },
+        "walk-left": {
+          "frames": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              2
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              7,
+              2
+            ]
+          ],
+          "durations": [
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            220
+          ],
+          "loop": true
+        },
+        "walk-right": {
+          "frames": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              4,
+              1
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ]
+          ],
+          "durations": [
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            220
+          ],
+          "loop": true
+        }
+      },
+      "lookDirections": [
+        {
+          "degrees": 0.0,
+          "row": 9,
+          "column": 0
+        },
+        {
+          "degrees": 22.5,
+          "row": 9,
+          "column": 1
+        },
+        {
+          "degrees": 45.0,
+          "row": 9,
+          "column": 2
+        },
+        {
+          "degrees": 67.5,
+          "row": 9,
+          "column": 3
+        },
+        {
+          "degrees": 90.0,
+          "row": 9,
+          "column": 4
+        },
+        {
+          "degrees": 112.5,
+          "row": 9,
+          "column": 5
+        },
+        {
+          "degrees": 135.0,
+          "row": 9,
+          "column": 6
+        },
+        {
+          "degrees": 157.5,
+          "row": 9,
+          "column": 7
+        },
+        {
+          "degrees": 180.0,
+          "row": 10,
+          "column": 0
+        },
+        {
+          "degrees": 202.5,
+          "row": 10,
+          "column": 1
+        },
+        {
+          "degrees": 225.0,
+          "row": 10,
+          "column": 2
+        },
+        {
+          "degrees": 247.5,
+          "row": 10,
+          "column": 3
+        },
+        {
+          "degrees": 270.0,
+          "row": 10,
+          "column": 4
+        },
+        {
+          "degrees": 292.5,
+          "row": 10,
+          "column": 5
+        },
+        {
+          "degrees": 315.0,
+          "row": 10,
+          "column": 6
+        },
+        {
+          "degrees": 337.5,
+          "row": 10,
+          "column": 7
+        }
+      ],
+      "credit": "Shenshen Pet contributors / 上善无形 · CC BY-NC-SA 4.0"
+    },
+    "mature": {
+      "name": "成熟版",
+      "atlas": "/pets/mature-atlas.png",
+      "columns": 3,
+      "rows": 2,
+      "height": 410,
+      "animations": {
+        "idle": {
+          "frames": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "durations": [
+            3200,
+            160,
+            1800
+          ],
+          "loop": true
+        },
+        "wave": {
+          "frames": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "durations": [
+            120,
+            450,
+            180,
+            450,
+            180
+          ],
+          "loop": false
+        },
+        "jump": {
+          "frames": [
+            [
+              2,
+              0
+            ]
+          ],
+          "durations": [
+            900
+          ],
+          "loop": false
+        },
+        "think": {
+          "frames": [
+            [
+              0,
+              1
+            ]
+          ],
+          "durations": [
+            1000
+          ],
+          "loop": true
+        },
+        "work": {
+          "frames": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "durations": [
+            1800,
+            600
+          ],
+          "loop": true
+        },
+        "feed": {
+          "frames": [
+            [
+              1,
+              1
+            ]
+          ],
+          "durations": [
+            2400
+          ],
+          "loop": false
+        },
+        "sleep": {
+          "frames": [
+            [
+              2,
+              1
+            ]
+          ],
+          "durations": [
+            1400
+          ],
+          "loop": true
+        },
+        "failed": {
+          "frames": [
+            [
+              0,
+              1
+            ]
+          ],
+          "durations": [
+            1800
+          ],
+          "loop": true
+        },
+        "walk-left": {
+          "frames": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "durations": [
+            800,
+            180
+          ],
+          "loop": true
+        },
+        "walk-right": {
+          "frames": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "durations": [
+            800,
+            180
+          ],
+          "loop": true
+        }
+      },
+      "lookDirections": [],
+      "credit": "GPT Image 二创 / TreapGoGo 社区三视图 / 上善无形、ZipZipPipe",
+      "crop": [
+        157,
+        5,
+        253,
+        504
+      ]
+    }
+  }
+}

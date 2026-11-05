@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>大肥鱼 · 今天也陪你摸会儿鱼</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/pet.js"></script>
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="大肥鱼首页"
+        ><span class="brand-mark">≈</span
+        ><span>大肥鱼<small>WHALE GIRL</small></span></a
+      >
+      <p class="nav-caption">我的小小鱼缸</p>
+      <nav>
+        <button class="nav active" data-tab="home">
+          <span>◉</span>陪她待会儿</button
+        ><button class="nav" data-tab="explore"><span>↗</span>出去逛逛</button
+        ><button class="nav" data-tab="channels">
+          <span>♧</span>连接聊天账号</button
+        ><button class="nav" data-tab="phone"><span>▣</span>手机看视频</button
+        ><button class="nav" data-tab="settings">
+          <span>⚙</span>给小鱼装大脑</button
+        ><button class="nav" data-tab="character">
+          <span>✧</span>形象与来源
+        </button>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="local-dot"></span> 运行在本机
+        <p>角色、聊天和任务记录<br />都在你的电脑里。</p>
+        <button id="pause" class="text-button danger">
+          Ⅱ 暂停全部自动活动
+        </button>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header>
+        <div>
+          <span id="breadcrumb">我的鱼缸</span
+          ><span class="header-divider">/</span
+          ><span class="subtle">大肥鱼的日常</span>
+        </div>
+        <div class="header-right">
+          <span id="mode-badge" class="badge">正在连接</span
+          ><span class="version">v4.0 · 演示交付版</span>
+        </div>
+      </header>
+      <main>
+        <section id="home" class="panel">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">A LITTLE WHALE, A LITTLE COMPANY</div>
+              <h1>今天也陪你<span>摸会儿鱼。</span></h1>
+              <p>聪明一点点，嘴硬一点点，白饭要满满一碗。</p>
+            </div>
+            <button class="button ghost small" data-connect>
+              接入 DeepSeek ↗
+            </button>
+          </div>
+          <div class="home-grid">
+            <div class="pet-card">
+              <div class="pet-top">
+                <div class="form-switch" role="group" aria-label="桌宠形态">
+                  <button
+                    type="button"
+                    id="form-chibi"
+                    class="selected"
+                    aria-pressed="true"
+                  >
+                    Q 版</button
+                  ><button type="button" id="form-mature" aria-pressed="false">
+                    成熟版
+                  </button>
+                </div>
+                <span class="pet-mood" id="pet-mood">✦ 在等你说话</span>
+              </div>
+              <div class="pet-scene">
+                <div class="ocean-ring ring-one"></div>
+                <div class="ocean-ring ring-two"></div>
+                <span class="floating-star star-one">✧</span
+                ><span class="floating-star star-two">✦</span>
+                <div class="speech" id="pet-speech">
+                  才不是大肥鱼……<br />是鲸鱼娘！
+                </div>
+                <button
+                  class="pet-touch"
+                  id="pet-touch"
+                  aria-label="摸摸大肥鱼"
+                >
+                  <canvas
+                    id="pet-canvas"
+                    class="pet-canvas"
+                    role="img"
+                    aria-label="大肥鱼逐帧动画，可切换 Q 版和成熟版"
+                  ></canvas>
+                </button>
+                <div class="pet-shadow"></div>
+              </div>
+              <div class="pet-actions" role="group" aria-label="桌宠动作">
+                <button id="pet-wave" type="button">挥手</button
+                ><button id="pet-jump" type="button">跳一下</button
+                ><button id="pet-sleep" type="button">睡一会儿</button
+                ><button id="pet-motion" type="button" aria-pressed="true">
+                  暂停动画
+                </button>
+              </div>
+              <div class="pet-footer">
+                <div>
+                  <b>大肥鱼</b><small id="pet-status">Q 版 · 待机</small>
+                </div>
+                <button class="button feed" id="feed">
+                  🍚 喂一碗白饭 <span id="feed-count">0</span>
+                </button>
+              </div>
+            </div>
+            <section class="chat-card card">
+              <div class="card-heading">
+                <div>
+                  <span class="tiny-square">聊</span>
+                  <h2>和她说说话</h2>
+                </div>
+                <div class="chat-tools">
+                  <button class="text-button connect-link" data-connect>
+                    接入 DeepSeek</button
+                  ><button id="clear-chat" class="text-button">清空</button>
+                </div>
+              </div>
+              <div class="mode-notice" id="chat-notice">
+                互动体验 · 当前为预设回应，未调用 AI
+              </div>
+              <div class="messages" id="messages" aria-live="polite"></div>
+              <div id="typing" class="typing" role="status" hidden>
+                <span></span><span></span><span></span
+                ><small>大肥鱼正在认真想…</small>
+              </div>
+              <div class="suggestions">
+                <button data-prompt="大肥鱼，开饭啦">开饭啦 🍚</button
+                ><button data-prompt="你才不是大肥鱼呢">叫你大肥鱼</button
+                ><button data-prompt="今天有点累，陪我歇一会儿">
+                  陪我歇会儿
+                </button>
+              </div>
+              <form id="chat-form">
+                <label class="sr-only" for="message">发给大肥鱼的消息</label
+                ><textarea
+                  id="message"
+                  maxlength="8000"
+                  placeholder="有什么想和她说的？"
+                  required
+                ></textarea>
+                <div class="composer-bottom">
+                  <small>Ctrl / ⌘ + Enter 发送</small
+                  ><button class="button" id="chat-submit">发送 ↗</button>
+                </div>
+                <p class="form-result" id="chat-result" role="status"></p>
+              </form>
+            </section>
+          </div>
+          <div class="desktop-banner">
+            <div>
+              <b>把她放到真正的桌面上</b
+              ><span>透明置顶 · 拖拽 · 右键变身 · 双击聊天 · 默认不走动</span>
+            </div>
+            <button class="button ghost small" id="launch-desktop">
+              启动独立桌宠 ↗
+            </button>
+          </div>
+          <p id="desktop-result" class="form-result" role="status"></p>
+          <div class="quick-grid">
+            <button class="quick-card" data-go="explore">
+              <span class="quick-icon">↗</span>
+              <div>
+                <b>一起看看外面的世界</b
+                ><small>读网页、看截图，或让她自己探索</small>
+              </div>
+              <span>→</span></button
+            ><button class="quick-card" data-go="channels">
+              <span class="quick-icon">♧</span>
+              <div>
+                <b>让她住进聊天软件</b
+                ><small>QQ 自动回复 · 企业微信群消息</small>
+              </div>
+              <span>→</span>
+            </button>
+          </div>
+        </section>
+        <section id="explore" class="panel" hidden>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">A LITTLE ADVENTURE</div>
+              <h1>去外面<span>看看吧。</span></h1>
+              <p>每一步都有记录，回家时带一张截图。</p>
+            </div>
+            <span class="badge" id="browser-badge">检查浏览组件</span>
+          </div>
+          <div class="tool-grid">
+            <section class="card form-card">
+              <h2>安排一次小探索</h2>
+              <form id="task-form">
+                <label for="task-kind">想让她做什么？</label
+                ><select id="task-kind">
+                  <option value="read">读取网页 · 无需模型</option>
+                  <option value="agent">自主探索 · 需要模型</option>
+                  <option value="video">
+                    尝试网页视频 · 观察播放进度
+                  </option></select
+                ><label for="url">从这个公开网址出发</label
+                ><input
+                  id="url"
+                  type="url"
+                  value="https://example.com"
+                  required
+                /><label for="goal">想了解什么？</label
+                ><textarea
+                  id="goal"
+                  placeholder="例如：看看这个网站的项目介绍，告诉我有什么有趣的。"
+                ></textarea
+                ><label for="seconds">视频页面停留时长（秒）</label
+                ><input
+                  id="seconds"
+                  type="number"
+                  min="5"
+                  max="120"
+                  value="15"
+                />
+                <div class="callout">
+                  自主探索最多
+                  <span id="step-budget">5</span>
+                  轮，只在起始网站及其子域内读取和滚动。不会登录、发言或购买。
+                </div>
+                <button class="button full">让她出发 ↗</button>
+                <p class="form-result" id="task-result" role="status"></p>
+              </form>
+              <details>
+                <summary>第一次使用浏览功能？</summary>
+                <p>
+                  先双击下载包里的「安装浏览器」。完成后重新打开大肥鱼。聊天不需要这一步。
+                </p>
+                <p>
+                  视频平台可能要求登录或阻止自动播放，只有检测到进度前进才会显示播放成功。
+                </p>
+              </details>
+            </section>
+            <section class="card records-card">
+              <div class="card-heading">
+                <h2>小鱼的探索日记</h2>
+                <button class="text-button refresh">刷新</button>
+              </div>
+              <div class="jobs" id="jobs"></div>
+            </section>
+          </div>
+        </section>
+        <section id="channels" class="panel" hidden>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">A PLACE TO SAY HELLO</div>
+              <h1>给她一个<span>聊天的家。</span></h1>
+              <p>先测通连接，再开启你需要的互动。</p>
+            </div>
+          </div>
+          <div class="tool-grid">
+            <section class="card form-card">
+              <div class="card-heading">
+                <h2>QQ</h2>
+                <span class="badge" id="qq-badge">未检测</span>
+              </div>
+              <p class="subtle">
+                接入你已有的 OneBot 11 服务，如
+                NapCat。账号在协议端登录，本应用不保存 QQ 密码。
+              </p>
+              <form id="qq-form">
+                <label for="onebot-url">OneBot HTTP 服务地址</label
+                ><input
+                  id="onebot-url"
+                  placeholder="http://127.0.0.1:3000"
+                  type="url"
+                /><label for="onebot-token">Access Token</label
+                ><input
+                  id="onebot-token"
+                  type="password"
+                  autocomplete="new-password"
+                  placeholder="只在本机保存"
+                /><label for="qq-users">允许自动回复的好友 QQ 号</label
+                ><input id="qq-users" placeholder="多个号码用逗号分开" /><label
+                  for="qq-groups"
+                  >允许的群号（群内需 @ 她）</label
+                ><input id="qq-groups" placeholder="不填则不回复群消息" /><label
+                  class="switch-row"
+                  ><input id="qq-auto" type="checkbox" /><span
+                    >开启允许范围内的自动回复</span
+                  ></label
+                >
+                <div class="button-row">
+                  <button class="button">保存 QQ 设置</button
+                  ><button type="button" id="test-qq" class="button ghost">
+                    检测登录
+                  </button>
+                </div>
+                <p class="form-result" id="qq-result" role="status"></p>
+              </form>
+              <details>
+                <summary>如何让 QQ 消息传进来？</summary>
+                <p>
+                  在 OneBot 协议端启用 HTTP
+                  消息上报，消息格式选择「消息段数组」，填写下面的 URL 和
+                  Secret。两者需运行在同一台电脑。
+                </p>
+                <button id="qq-setup" class="button ghost small">
+                  显示本机回调配置
+                </button>
+                <pre id="qq-setup-text" hidden></pre>
+                <p>
+                  开启自动回复需要真实模型与允许列表。关闭开关或点击左下角暂停，即停止后续自动回复。
+                </p>
+              </details>
+            </section>
+            <div>
+              <section class="card form-card">
+                <div class="card-heading">
+                  <h2>微信 · 企业微信群机器人</h2>
+                  <span class="badge" id="wechat-badge">未检测</span>
+                </div>
+                <p class="subtle">
+                  粘贴群机器人
+                  Webhook，即可向指定企业微信群发消息。此渠道不接收消息，也不提供个人微信扫码登录。
+                </p>
+                <form id="wechat-form">
+                  <label for="wecom-webhook">群机器人 Webhook</label
+                  ><input
+                    id="wecom-webhook"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…"
+                  /><button class="button">保存微信设置</button>
+                  <p class="form-result" id="wechat-result" role="status"></p>
+                </form>
+              </section>
+              <section class="card form-card send-card">
+                <h2>发一条消息试试</h2>
+                <form id="send-form">
+                  <div class="two-fields">
+                    <div>
+                      <label for="send-channel">发送到</label
+                      ><select id="send-channel">
+                        <option value="qq">QQ 好友</option>
+                        <option value="qq-group">QQ 群</option>
+                        <option value="wechat">企业微信群</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="send-target">收件 QQ / 群号</label
+                      ><input id="send-target" inputmode="numeric" />
+                    </div>
+                  </div>
+                  <label for="outgoing">消息内容</label
+                  ><textarea
+                    id="outgoing"
+                    required
+                    placeholder="例如：我是大肥鱼，来报到啦。"
+                  ></textarea
+                  ><button class="button">发送这条消息 ↗</button>
+                  <p class="form-result" id="send-result" role="status"></p>
+                </form>
+              </section>
+            </div>
+          </div>
+        </section>
+        <section id="phone" class="panel" hidden>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">A SMALL SCREEN ADVENTURE</div>
+              <h1>借她一部<span>手机。</span></h1>
+              <p>连接你授权的 Android 设备，限时打开 App、滑动、截图。</p>
+            </div>
+          </div>
+          <div class="tool-grid">
+            <section class="card form-card">
+              <h2>Android 视频浏览</h2>
+              <div class="callout">
+                需要本机安装 ADB，手机打开 USB
+                调试，并在手机上点击「允许」。仅支持已连接的 Android；不支持
+                iPhone。
+              </div>
+              <form id="phone-form">
+                <label for="device">已授权设备</label
+                ><select id="device">
+                  <option value="">尚未检测设备</option></select
+                ><button
+                  id="scan-devices"
+                  class="button ghost small"
+                  type="button"
+                >
+                  检测连接的手机</button
+                ><label for="package">打开哪个 App？</label
+                ><select id="package">
+                  <option value="tv.danmaku.bili">哔哩哔哩</option>
+                  <option value="com.ss.android.ugc.aweme">抖音</option></select
+                ><label for="phone-seconds">运行多久（10–120 秒）</label
+                ><input
+                  id="phone-seconds"
+                  type="number"
+                  min="10"
+                  max="120"
+                  value="30"
+                />
+                <p class="subtle">
+                  每 10
+                  秒向上滑动一次。不点赞、评论、关注或发消息；不保证每一页都是视频。
+                </p>
+                <button class="button full">在这台手机上开始</button>
+                <p class="form-result" id="phone-result" role="status"></p>
+              </form>
+            </section>
+            <section class="card form-card">
+              <h2>使用前，先停在合适的页面</h2>
+              <ol class="steps">
+                <li>
+                  将手机接到运行大肥鱼的电脑，并确认
+                  <code>adb devices</code> 显示为 device。
+                </li>
+                <li>先在手机手动登录 App，打开视频推荐流。</li>
+                <li>回到这里选择设备和时长，点击开始。</li>
+                <li>
+                  在「出去逛逛」里查看动作记录和最终手机截图；可随时暂停。
+                </li>
+              </ol>
+              <p class="subtle">
+                手机登录信息留在手机上。本应用只执行固定的打开、滑动和截图动作，不让模型生成手机命令。
+              </p>
+              <div id="device-note" class="callout">
+                设备还未检测，此能力未就绪。
+              </div>
+            </section>
+          </div>
+        </section>
+        <section id="settings" class="panel" hidden>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">A LITTLE BIT OF INTELLIGENCE</div>
+              <h1>给小鱼<span>装上大脑。</span></h1>
+              <p>填一次，保存在本机。无需修改代码或环境变量。</p>
+            </div>
+            <span class="badge" id="model-badge">未检测</span>
+          </div>
+          <div class="tool-grid">
+            <section class="card form-card">
+              <div class="connection-shortcut">
+                <div>
+                  <h2>DeepSeek 快速接入</h2>
+                  <p>官网创建 Key → 自动检测模型与余额 → 开始聊天。</p>
+                </div>
+                <button class="button small" data-connect>开始接入 ↗</button>
+              </div>
+              <h3>高级模型配置</h3>
+              <form id="model-form">
+                <label for="engine">运行方式</label
+                ><select id="engine">
+                  <option value="demo">互动体验 · 预设回应，不调用模型</option>
+                  <option value="model">
+                    真实 AI · 使用下面的模型
+                  </option></select
+                ><label for="provider">快捷选择</label
+                ><select id="provider">
+                  <option value="deepseek">DeepSeek</option>
+                  <option value="local">本机兼容接口（如 Ollama）</option>
+                  <option value="custom">其他兼容 OpenAI 的服务</option></select
+                ><label for="base-url">API 地址（包含 /v1）</label
+                ><input id="base-url" type="url" required /><label for="model"
+                  >模型名称</label
+                ><input id="model" required /><label for="model-key"
+                  >API Key</label
+                ><input
+                  id="model-key"
+                  type="password"
+                  autocomplete="new-password"
+                  placeholder="粘贴你自己的 API Key"
+                />
+                <div class="button-row">
+                  <button class="button">保存模型设置</button
+                  ><button type="button" id="test-model" class="button ghost">
+                    保存并检测连接
+                  </button>
+                </div>
+                <p class="subtle small-text">
+                  检测会发送一次简短模型请求，可能产生少量 API
+                  费用。保存过的密钥留空即可保留。
+                </p>
+                <button
+                  type="button"
+                  id="forget-model"
+                  class="text-button danger"
+                >
+                  断开并忘记本机密钥
+                </button>
+                <p class="form-result" id="model-result" role="status"></p>
+              </form>
+            </section>
+            <section class="card form-card">
+              <h2>她的性格，你来定</h2>
+              <form id="persona-form">
+                <label for="personality">角色设定</label
+                ><textarea id="personality" class="persona-input"></textarea
+                ><label for="browser-steps">自主浏览最多几轮（1–8）</label
+                ><input
+                  id="browser-steps"
+                  type="number"
+                  min="1"
+                  max="8"
+                  value="5"
+                /><button class="button ghost">保存性格与步数</button>
+                <p class="form-result" id="persona-result" role="status"></p>
+              </form>
+              <hr />
+              <h3>带走她的记忆</h3>
+              <p class="subtle">
+                导出本机网页聊天与最近任务。模型请求会把近期对话发给你选择的服务商。
+              </p>
+              <div class="button-row">
+                <button id="export" class="button ghost small">
+                  导出记录 JSON ↓</button
+                ><button id="diagnostics" class="button ghost small">
+                  下载环境诊断 ↓
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section id="character" class="panel" hidden>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">THE GIRL BEHIND THE WHALE</div>
+              <h1>这次，是<span>鲸鱼娘。</span></h1>
+              <p>蓝发、鲸鳍耳、大鲸尾，和一碗白饭的执念。</p>
+            </div>
+          </div>
+          <section class="card form-card">
+            <div class="card-heading">
+              <h2>Q 版与成熟版 · 动作资源</h2>
+              <a
+                class="text-link"
+                href="/sheet.png"
+                target="_blank"
+                rel="noopener"
+                >查看原图 ↗</a
+              >
+            </div>
+            <img
+              class="sheet-image"
+              src="/sheet.png"
+              alt="大肥鱼鲸鱼娘二创正面、侧面、背面及表情设定图"
+            />
+            <div class="source-note">
+              <p>
+                Q 版动画复用 Shenshen Pet
+                的透明图集及帧时长；成熟版根据社区成熟比例三视图，由 GPT Image
+                二创六个动作姿态。网页与原生桌宠使用同一份动作配置，支持形态切换、眨眼、挥手、思考和投喂反馈。属于非官方社区二创。
+              </p>
+              <p>
+                <a
+                  href="https://github.com/schrieeeffer/shenshen-codex-pet"
+                  target="_blank"
+                  rel="noopener"
+                  >Q 版图集与动作来源：深深桌宠 · CC BY-NC-SA 4.0</a
+                >。桌面交互设计参考
+                <a
+                  href="https://github.com/isKage/desk-llm-pet"
+                  target="_blank"
+                  rel="noopener"
+                  >DeskLLMPet</a
+                >，本版使用 Qt 实现独立窗口。
+              </p>
+              <details>
+                <summary>成熟版三视图参考</summary>
+                <img
+                  class="sheet-image"
+                  src="/mature-reference.png"
+                  alt="社区成熟比例鲸鱼娘正面、侧面和背面参考"
+                />
+              </details>
+              <p>
+                参考图：<a
+                  href="https://treapgogo.github.io/deepseek-whale-girl/"
+                  target="_blank"
+                  rel="noopener"
+                  >TreapGoGo / 鲸鱼娘开源资产库</a
+                >。形象来源链路见<a
+                  href="https://iphsiibl.github.io/deepseek-whale-girl-gallery/"
+                  target="_blank"
+                  rel="noopener"
+                  >社区图集</a
+                >与<a
+                  href="https://zh.moegirl.org.cn/DeepSeek%E5%A8%98"
+                  target="_blank"
+                  rel="noopener"
+                  >萌娘百科条目</a
+                >；上游原型「溟月」作者为上善无形，女仆版二创为 ZipZipPipe。
+              </p>
+              <details>
+                <summary>查看参考图与素材说明</summary>
+                <img
+                  class="sheet-image"
+                  src="/reference.png"
+                  alt="社区提供的 Q 版鲸鱼娘三视图参考"
+                />
+                <p>
+                  仅作个人非商业试用。社区素材许可与代码许可分别记录在下载包
+                  ATTRIBUTION.md 中，不把网站的 MIT 代码许可当作图片授权。
+                </p>
+              </details>
+            </div>
+          </section>
+        </section>
+        <footer>
+          <span>≈ 给数字生活留一点可爱</span
+          ><span>本地伙伴 · 非官方社区二创</span>
+        </footer>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+
+    <dialog
+      id="deepseek-dialog"
+      class="deepseek-dialog"
+      aria-labelledby="deepseek-title"
+    >
+      <div class="dialog-heading">
+        <div>
+          <div class="eyebrow">A REAL BRAIN FOR YOUR LITTLE WHALE</div>
+          <h2 id="deepseek-title">让她用 DeepSeek 和你聊。</h2>
+        </div>
+        <button
+          type="button"
+          id="deepseek-close"
+          class="dialog-close"
+          aria-label="关闭接入引导"
+        >
+          ×
+        </button>
+      </div>
+      <p class="dialog-intro">
+        登录与创建 Key 在 DeepSeek
+        官方页面完成。回到这里接入后，网页和桌宠都能使用同一个模型。
+      </p>
+      <div class="connect-step">
+        <span class="step-number">1</span>
+        <div>
+          <b>登录官方开放平台</b>
+          <p>
+            用你自己的 DeepSeek 账号创建 API
+            Key。网页聊天账号的登录状态不会自动授权本项目调用 API。
+          </p>
+          <div class="official-links">
+            <a
+              id="deepseek-login-link"
+              href="https://platform.deepseek.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >登录 DeepSeek 官网 ↗</a
+            ><a
+              id="deepseek-keys-link"
+              href="https://platform.deepseek.com/api_keys"
+              target="_blank"
+              rel="noopener noreferrer"
+              >创建 API Key ↗</a
+            >
+          </div>
+        </div>
+      </div>
+      <form id="deepseek-form">
+        <div class="connect-step">
+          <span class="step-number">2</span>
+          <div>
+            <b>粘贴 Key，检测可用模型</b
+            ><label for="deepseek-key">DeepSeek API Key</label>
+            <div class="key-input">
+              <input
+                id="deepseek-key"
+                type="password"
+                autocomplete="new-password"
+                maxlength="1024"
+                placeholder="粘贴 API Key，而非登录密码"
+              /><button type="button" id="deepseek-reveal" class="text-button">
+                显示
+              </button>
+            </div>
+            <div class="button-row">
+              <button
+                type="button"
+                id="deepseek-inspect"
+                class="button ghost small"
+              >
+                检测 Key / 模型 / 余额</button
+              ><a
+                id="deepseek-balance-link"
+                class="text-link"
+                href="https://platform.deepseek.com/balance"
+                target="_blank"
+                rel="noopener noreferrer"
+                >查看官方余额 ↗</a
+              >
+            </div>
+            <div id="deepseek-account" class="account-result" hidden></div>
+            <label for="deepseek-model">使用哪个模型？</label
+            ><select id="deepseek-model">
+              <option value="">自动选择当前可用模型</option>
+            </select>
+          </div>
+        </div>
+        <div class="connect-step">
+          <span class="step-number">3</span>
+          <div>
+            <b>完成接入，聊一句试试</b>
+            <p>
+              会发送一次简短检测请求，按 DeepSeek API 规则计费。Key
+              只保存在这台电脑的本项目数据目录，页面不会回显已保存的 Key。
+            </p>
+            <button id="deepseek-connect" class="button full">
+              检测并开始真实聊天 ↗
+            </button>
+            <p id="deepseek-result" class="form-result" role="status"></p>
+          </div>
+        </div>
+      </form>
+      <div id="deepseek-success" class="connection-success" hidden>
+        <b>接入成功，大肥鱼已经准备好了。</b>
+        <p id="deepseek-reply"></p>
+        <button id="deepseek-return" class="button">回去和她说说话 ↗</button>
+      </div>
+      <p class="connection-footnote">
+        本项目是非官方社区作品。官网登录密码和 Cookie 留在官网。需要使用官方
+        Harness 的账号授权时，请在 Harness 内操作；本版采用开放平台 API Key
+        接入。
+      </p>
+    </dialog>
+  </body>
+</html>
